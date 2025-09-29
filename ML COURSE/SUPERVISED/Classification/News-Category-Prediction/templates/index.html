@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>News Headline Category Predictor</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .container {
+        max-width: 600px;
+        margin-top: 50px;
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        margin-bottom: 30px;
+        font-weight: bold;
+        color: #4a90e2;
+      }
+      .btn-primary {
+        background-color: #4a90e2;
+        border: none;
+      }
+      .btn-primary:hover {
+        background-color: #357abd;
+      }
+      .history-card {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container shadow">
+      <h1 class="text-center">News Headline Predictor</h1>
+      <form method="POST" action="/">
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control form-control-lg"
+            name="headline"
+            placeholder="Enter news headline..."
+            required
+          />
+        </div>
+        <div class="d-grid gap-2">
+          <button type="submit" class="btn btn-primary btn-lg">Predict</button>
+          <button type="reset" class="btn btn-outline-secondary btn-lg">
+            Reset
+          </button>
+        </div>
+      </form>
+
+      {% if prediction_text %}
+      <div
+        class="alert alert-success alert-dismissible fade show mt-4"
+        role="alert"
+      >
+        {{ prediction_text }}
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+      {% endif %} {% if history %}
+      <div class="history-card mt-4">
+        <h5>Prediction History</h5>
+        <ul class="list-group">
+          {% for item in history %}
+          <li class="list-group-item">
+            <strong>Headline:</strong> {{ item.headline }}<br />
+            <strong>Category:</strong>
+            <span class="badge bg-info text-dark">{{ item.prediction }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
